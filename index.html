@@ -4,83 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+   
+    
 
-    <style>
-        svg{
-            border:1px solid black;
-            width: 700px;
-            height: 500px;
-            transform: scaleY(-1);
-        }
-    </style>
+
 </head>
 <body>
-    <button id="bt1" clicado="false">Em Escala</button><br>
-    <svg id="mySvg" viewBox="0 0 100 100">
+
+    <svg id="mySvg" viewBox="0 0 100 100" class="svgThardelly" >
+        <rect x="0" y="0" width="10" height="10" fill="red" />
+        <rect x="90" y="90" width="10" height="10" fill="blue" />
+        <rect x="45" y="45" width="10" height="10" fill="green" />
+        <rect x="0" y="0" width="100" height="100" fill="none" stroke="black" stroke-width="0.5" />
+    </svg><br>
+
+    <svg id="mySvg2" viewBox="0 0 100 100" class="svgThardelly" >
         <rect x="0" y="0" width="10" height="10" fill="red" />
         <rect x="90" y="90" width="10" height="10" fill="blue" />
         <rect x="45" y="45" width="10" height="10" fill="green" />
         <rect x="0" y="0" width="100" height="100" fill="none" stroke="black" stroke-width="0.5" />
     </svg>
-    <textarea id="txt" cols="30" rows="10"></textarea>
 
+    <script src="svg_thardelly.js"></script>
     <script>
         const svg = document.getElementById('mySvg');
-
-        document.getElementById("bt1").addEventListener("click",function(){
-            if(this.getAttribute("clicado")=="true"){
-                this.setAttribute("clicado","false")
-                this.innerHTML="Fora de Escala"
-                svg.setAttribute("preserveAspectRatio","none")
-            }else{
-                this.setAttribute("clicado","true")
-                this.innerHTML="Em Escala"
-                svg.setAttribute("preserveAspectRatio","xMidYMid meet")
-            }
-
-           
-        })
- 
-        const w=svg.width.baseVal.value;
-        const h=svg.height.baseVal.value;
-        console.log(w,h)
-        let viewBox = svg.getAttribute('viewBox').split(' ');
         
+
+        for (let i=0;i<100;i+=10){
+            svg.addLine(i,0,i,100,"gray")
+            svg.addLine(0,i,100,i)
+        }
+
+        
+
+
+
+
+        
+
+
+
        
         
-        svg.addEventListener("mousemove", function(event) {
-            const mousex = event.clientX - this.getBoundingClientRect().left;
-           // const dx = (mousex - w/2)/scale;
-            const mousey = h-(event.clientY - this.getBoundingClientRect().top);
-          //  const dy = (mousey - h/2)/scale;
-
-  
-     
-             
         
-            if (svg.getAttribute("preserveAspectRatio")=="none"){
-                
-                const xpos = (mousex-w/2)/(w/viewBox[2])+viewBox[0]*1+viewBox[2]/2;
-                const ypos = (mousey-h/2)/(h/viewBox[3])+viewBox[1]*1+viewBox[3]/2;
-                document.getElementById("txt").value=`mx=${mousex} my=${mousey}\n`
-                //document.getElementById("txt").value+=`dx=${dx} dy=${dy}\n`
-                document.getElementById("txt").value+=`x=${xpos} y=${ypos}`
-            }else{
-                const scale=(viewBox[2]>=viewBox[3])?h/viewBox[3]:w/viewBox[2];
-                const xpos = (mousex-w/2)/scale+viewBox[0]*1+viewBox[2]/2;
-                document.getElementById("txt").value=(mousey-h/2)/scale+"\n"
-                const ypos = (mousey-h/2)/scale+viewBox[1]*1+viewBox[3]/2;
-                document.getElementById("txt").value+=`mx=${mousex} my=${mousey}\n`
-                //document.getElementById("txt").value+=`dx=${dx} dy=${dy}\n`
-                document.getElementById("txt").value+=`x=${xpos} y=${ypos}`
-
-            }
-            
+   
 
 
-            
-        })
 
+       
+
+        
+
+        
 
     </script>
 
